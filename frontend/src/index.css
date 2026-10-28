@@ -16,3 +16,9 @@ img, svg { max-width: 100%; }
 .site-header a { color: var(--text); text-decoration: none; font-weight: 600; }
 .site-header a.active { text-decoration: underline; text-decoration-color: var(--cta); text-underline-offset: 4px; }
 .link { background: none; border: 0; padding: 0; font: inherit; font-weight: 600; color: var(--text); cursor: pointer; }
+.card { background: var(--card); border-radius: 12px; padding: 1.25rem; box-shadow: 0 2px 8px rgba(43, 27, 23, .1); }
+.auth-form { max-width: 420px; margin: 1rem auto; display: flex; flex-direction: column; gap: .75rem; }
+.field { display: flex; flex-direction: column; gap: .25rem; }
+.field label { font-weight: 600; }
+.field input { font: inherit; padding: .6rem; border: 1px solid #b9a58c; border-radius: 8px; }
+.error { color: #B3001B; font-weight: 600; }
