@@ -5,17 +5,11 @@ import Layout from './components/Layout'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import RequireAuth from './components/RequireAuth'
+import Home from './pages/Home'
+import Product from './pages/Product'
+import Cart from './pages/Cart'
+import Orders from './pages/Orders'
 import RequireAdmin from './components/RequireAdmin'
-
-export function Home() {
-  return (
-    <>
-      <h1>Chaussette</h1>
-      <p>Warm, cosy socks.</p>
-      <button className="btn">Shop now</button>
-    </>
-  )
-}
 
 export default function App() {
   return (
@@ -25,10 +19,12 @@ export default function App() {
           <Routes>
             <Route element={<Layout />}>
               <Route index element={<Home />} />
+              <Route path="socks/:id" element={<Product />} />
+              <Route path="cart" element={<Cart />} />
               <Route path="login" element={<Login />} />
               <Route path="register" element={<Register />} />
               <Route element={<RequireAuth />}>
-                <Route path="orders" element={<p>Orders</p>} />
+                <Route path="orders" element={<Orders />} />
               </Route>
               <Route element={<RequireAdmin />}>
                 <Route path="admin" element={<p>Admin</p>} />
