@@ -16,3 +16,7 @@ export const sockSchema = z.object({
   priceCents: z.coerce.number().int().min(0).max(10_000_000),
   stock: z.coerce.number().int().min(0).max(100_000),
 });
+
+export const orderSchema = z.object({
+  items: z.array(z.object({ sockId: z.number().int().positive(), qty: z.number().int().min(1).max(99) })).min(1).max(50),
+});

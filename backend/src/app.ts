@@ -10,6 +10,7 @@ import { errorHandler, notFound } from './middleware/error.js';
 import { csrfRouter } from './routes/csrf.js';
 import { authRouter } from './routes/auth.js';
 import { socksRouter } from './routes/socks.js';
+import { ordersRouter } from './routes/orders.js';
 import { openDb, type Db } from './db.js';
 
 export function createApp(env: Env, db: Db = openDb(env.DB_PATH)) {
@@ -33,6 +34,7 @@ export function createApp(env: Env, db: Db = openDb(env.DB_PATH)) {
   app.use('/api', csrfRouter(env));
   app.use('/api', authRouter(env, db));
   app.use('/api', socksRouter(env, db));
+  app.use('/api', ordersRouter(env, db));
   app.use(notFound);
   app.use(errorHandler);
   return app;
