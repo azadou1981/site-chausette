@@ -9,6 +9,9 @@ import Home from './pages/Home'
 import Product from './pages/Product'
 import Cart from './pages/Cart'
 import Orders from './pages/Orders'
+import Dashboard from './pages/admin/Dashboard'
+import SockForm from './pages/admin/SockForm'
+import AdminOrders from './pages/admin/AdminOrders'
 import RequireAdmin from './components/RequireAdmin'
 
 export default function App() {
@@ -27,7 +30,10 @@ export default function App() {
                 <Route path="orders" element={<Orders />} />
               </Route>
               <Route element={<RequireAdmin />}>
-                <Route path="admin" element={<p>Admin</p>} />
+                <Route path="admin" element={<Dashboard />} />
+                <Route path="admin/socks/new" element={<SockForm />} />
+                <Route path="admin/socks/:id" element={<SockForm />} />
+                <Route path="admin/orders" element={<AdminOrders />} />
               </Route>
             </Route>
           </Routes>

@@ -47,3 +47,9 @@ img, svg { max-width: 100%; }
 .grow { flex: 1 1 8rem; }
 .total { font-size: 1.3rem; }
 .order { margin-bottom: 1rem; }
+.table-wrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; background: var(--card); border-radius: 12px; }
+th, td { text-align: left; padding: .5rem; border-bottom: 1px solid #e6d3b9; }
+.field textarea { font: inherit; padding: .6rem; border: 1px solid #b9a58c; border-radius: 8px; }
+.preview { max-width: 160px; border-radius: 8px; }
+a.btn { display: inline-block; text-decoration: none; }
