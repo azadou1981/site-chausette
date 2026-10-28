@@ -23,5 +23,8 @@ export function loadEnv(source: NodeJS.ProcessEnv = process.env): Env {
     const msg = parsed.error.issues.map((i) => `${i.path.join('.')}: ${i.message}`).join('; ');
     throw new Error(`Invalid environment: ${msg}`);
   }
+  if (parsed.data.NODE_ENV === 'production' && !source.ADMIN_PASSWORD) {
+    throw new Error('Invalid environment: ADMIN_PASSWORD must be set explicitly in production');
+  }
   return parsed.data;
 }

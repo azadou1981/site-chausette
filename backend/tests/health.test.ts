@@ -11,6 +11,9 @@ describe('health', () => {
     expect(res.status).toBe(200);
     expect(res.body.status).toBe('ok');
   });
+  it('requires an explicit ADMIN_PASSWORD in production', () => {
+    expect(() => loadEnv({ ...base, NODE_ENV: 'production' })).toThrow(/ADMIN_PASSWORD/);
+  });
   it('rejects a short JWT_SECRET', () => {
     expect(() => loadEnv({ ...base, JWT_SECRET: 'short' })).toThrow(/JWT_SECRET/);
   });

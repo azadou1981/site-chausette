@@ -34,7 +34,7 @@ export default function Cart() {
           <li key={i.sockId} className="card cart-line">
             <img src={assetUrl(i.imageUrl)} alt="" />
             <span className="grow">{i.title}<br />{euro(i.priceCents)}</span>
-            <label>Qty <input type="number" min={0} max={99} value={i.qty} onChange={(e) => setQty(i.sockId, Number(e.target.value) || 0)} /></label>
+            <label>Qty<span className="sr-only"> of {i.title}</span> <input type="number" min={0} max={99} value={i.qty} onChange={(e) => setQty(i.sockId, Number(e.target.value) || 0)} /></label>
             <button className="link" onClick={() => setQty(i.sockId, 0)} aria-label={`Remove ${i.title}`}>Remove</button>
           </li>
         ))}
