@@ -6,7 +6,7 @@ import { createApp } from '../src/app.js';
 import { loadEnv } from '../src/config/env.js';
 import { validateBody } from '../src/middleware/validate.js';
 
-const base = { JWT_SECRET: 'x'.repeat(32), NODE_ENV: 'test', RATE_LIMIT_MAX: '1000' };
+const base = { JWT_SECRET: 'x'.repeat(32), NODE_ENV: 'test', RATE_LIMIT_MAX: '1000', DB_PATH: ':memory:' };
 const app = () => createApp(loadEnv(base));
 
 describe('headers and CORS', () => {

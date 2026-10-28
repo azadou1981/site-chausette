@@ -7,8 +7,10 @@ import { csrfProtection } from './middleware/csrf.js';
 import { globalLimiter } from './middleware/rateLimit.js';
 import { errorHandler, notFound } from './middleware/error.js';
 import { csrfRouter } from './routes/csrf.js';
+import { authRouter } from './routes/auth.js';
+import { openDb, type Db } from './db.js';
 
-export function createApp(env: Env) {
+export function createApp(env: Env, db: Db = openDb(env.DB_PATH)) {
   const app = express();
   app.disable('x-powered-by');
   app.use(
@@ -26,6 +28,7 @@ export function createApp(env: Env) {
     res.json({ status: 'ok' });
   });
   app.use('/api', csrfRouter(env));
+  app.use('/api', authRouter(env, db));
   app.use(notFound);
   app.use(errorHandler);
   return app;

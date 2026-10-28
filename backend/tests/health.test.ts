@@ -3,7 +3,7 @@ import request from 'supertest';
 import { createApp } from '../src/app.js';
 import { loadEnv } from '../src/config/env.js';
 
-const base = { JWT_SECRET: 'x'.repeat(32), NODE_ENV: 'test' };
+const base = { JWT_SECRET: 'x'.repeat(32), NODE_ENV: 'test', DB_PATH: ':memory:' };
 
 describe('health', () => {
   it('returns 200', async () => {
