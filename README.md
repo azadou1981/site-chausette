@@ -16,7 +16,7 @@ frontend/           React 19 + Vite + TypeScript (background #F6E6D1, CTA #ED293
   src/                App, styles, tests
 .athanor/check.sh   build + tests (use `quick` for tests only)
 ```
-Planned: `backend/src/{db,schemas,seed}.ts`, `middleware/`, `routes/`, `frontend/src/{api,components,pages,context}`, `e2e/`, `deliverable/`.
+Also: `backend/src/{db,schemas,seed}.ts`, `routes/` (auth, socks, orders, admin), `frontend/src/{api,components,pages,context}`, `e2e/` (Playwright), `deliverable/` (built site + start scripts), `docs/CREDITS.md`, `TEST_GUIDE.md`.
 
 ## Backend init
 ```
@@ -32,3 +32,7 @@ Frontend: `VITE_API_URL` (default http://localhost:4000).
 
 ## Frontend
 `cd frontend && npm install && npm run dev` (http://localhost:5173).
+
+## Quick start (built site)
+`bash deliverable/start.sh` serves the site on http://localhost:8080 and the API on :4000 (creates `backend/.env` with random secrets on first run). Rebuild with `bash deliverable/build.sh`.
+Production: set `NODE_ENV=production`, `JWT_SECRET`, `ADMIN_PASSWORD` (required), `FRONTEND_ORIGIN`; build the frontend with `VITE_API_URL` pointing at the API.
