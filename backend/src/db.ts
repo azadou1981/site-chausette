@@ -15,6 +15,14 @@ export function openDb(file: string): Db {
     password_hash TEXT NOT NULL,
     role TEXT NOT NULL DEFAULT 'user' CHECK (role IN ('user','admin'))
   )`);
+  db.exec(`CREATE TABLE IF NOT EXISTS socks (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT NOT NULL,
+    description TEXT NOT NULL,
+    price_cents INTEGER NOT NULL CHECK (price_cents >= 0),
+    image TEXT,
+    stock INTEGER NOT NULL DEFAULT 0 CHECK (stock >= 0)
+  )`);
   return db;
 }
 

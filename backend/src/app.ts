@@ -1,3 +1,4 @@
+import path from 'node:path';
 import express from 'express';
 import helmet from 'helmet';
 import cors from 'cors';
@@ -8,6 +9,7 @@ import { globalLimiter } from './middleware/rateLimit.js';
 import { errorHandler, notFound } from './middleware/error.js';
 import { csrfRouter } from './routes/csrf.js';
 import { authRouter } from './routes/auth.js';
+import { socksRouter } from './routes/socks.js';
 import { openDb, type Db } from './db.js';
 
 export function createApp(env: Env, db: Db = openDb(env.DB_PATH)) {
@@ -24,11 +26,13 @@ export function createApp(env: Env, db: Db = openDb(env.DB_PATH)) {
   app.use(express.json({ limit: '100kb' }));
   app.use(cookieParser());
   app.use('/api', csrfProtection);
+  app.use('/uploads', express.static(path.resolve(env.UPLOAD_DIR), { index: false, dotfiles: 'deny', setHeaders: (r) => r.setHeader('X-Content-Type-Options', 'nosniff') }));
   app.get('/api/health', (_req, res) => {
     res.json({ status: 'ok' });
   });
   app.use('/api', csrfRouter(env));
   app.use('/api', authRouter(env, db));
+  app.use('/api', socksRouter(env, db));
   app.use(notFound);
   app.use(errorHandler);
   return app;
