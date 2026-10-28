@@ -4,3 +4,6 @@ dist/
 backend/data/
 backend/uploads/
 *.log
+e2e/node_modules/
+e2e/test-results/
+backend/uploads-e2e/
