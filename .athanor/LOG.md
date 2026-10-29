@@ -28,3 +28,8 @@ Delivery: deliverable/ (built app, serve.mjs, start.sh, build.sh, smoke.sh), TES
 - Request is for Next.js backend but project backend is Express: kept Express (DECISIONS). RESUME.md was a false positive (localhost URL); removed.
 - Added backend/src/seedTestAdmin.ts (`npm run seed:admin`, refused in production) + test; unik. logo in Layout.tsx/index.css, header on #F6E6D1.
 - Verified: full check.sh PASSED, home-375 screenshot viewed. Next: M14 Google OAuth.
+
+## 2026-10-29 M14
+- Google OAuth (auth-code flow, no new dependency): backend/src/routes/google.ts, google_id column + migration, optional GOOGLE_* env vars in .env.example; "Continuer avec Google" link on login/register, error banner on ?error=google.
+- Existing email accounts are linked (verified email only); roles are never changed. 503 when not configured. Tests mock Google via fetch.
+- Verified: full check.sh PASSED. Next: M15 delivery.

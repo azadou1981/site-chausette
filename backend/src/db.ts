@@ -15,6 +15,9 @@ export function openDb(file: string): Db {
     password_hash TEXT NOT NULL,
     role TEXT NOT NULL DEFAULT 'user' CHECK (role IN ('user','admin'))
   )`);
+  // Migration for databases created before Google sign-in (unique index allows many NULLs).
+  if (!(db.prepare('PRAGMA table_info(users)').all() as { name: string }[]).some((c) => c.name === 'google_id')) db.exec('ALTER TABLE users ADD COLUMN google_id TEXT');
+  db.exec('CREATE UNIQUE INDEX IF NOT EXISTS users_google_id ON users(google_id)');
   db.exec(`CREATE TABLE IF NOT EXISTS socks (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     title TEXT NOT NULL,
@@ -41,12 +44,14 @@ export function openDb(file: string): Db {
   return db;
 }
 
-export interface UserRow { id: number; name: string; email: string; password_hash: string; role: 'user' | 'admin' }
+export interface UserRow { id: number; name: string; email: string; password_hash: string; role: 'user' | 'admin'; google_id: string | null }
 export const publicUser = (u: UserRow) => ({ id: u.id, name: u.name, email: u.email, role: u.role });
 
 export const findUserByEmail = (db: Db, email: string) =>
   db.prepare('SELECT * FROM users WHERE email = ?').get(email) as unknown as UserRow | undefined;
 export const findUserById = (db: Db, id: number) =>
   db.prepare('SELECT * FROM users WHERE id = ?').get(id) as unknown as UserRow | undefined;
-export const insertUser = (db: Db, u: { name: string; email: string; passwordHash: string; role?: 'user' | 'admin' }) =>
-  Number(db.prepare('INSERT INTO users (name, email, password_hash, role) VALUES (?, ?, ?, ?)').run(u.name, u.email, u.passwordHash, u.role ?? 'user').lastInsertRowid);
+export const insertUser = (db: Db, u: { name: string; email: string; passwordHash: string; role?: 'user' | 'admin'; googleId?: string }) =>
+  Number(db.prepare('INSERT INTO users (name, email, password_hash, role, google_id) VALUES (?, ?, ?, ?, ?)').run(u.name, u.email, u.passwordHash, u.role ?? 'user', u.googleId ?? null).lastInsertRowid);
+export const findUserByGoogleId = (db: Db, id: string) =>
+  db.prepare('SELECT * FROM users WHERE google_id = ?').get(id) as unknown as UserRow | undefined;

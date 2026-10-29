@@ -11,14 +11,16 @@ import { loginSchema, registerSchema } from '../schemas.js';
 // Hash of a dummy password so unknown emails cost the same time as wrong passwords.
 const dummyHash = bcrypt.hashSync('dummy-password', 4);
 
+export const sessionStarter = (env: Env) => (res: import('express').Response, id: number) => {
+  const token = jwt.sign({}, env.JWT_SECRET, { subject: String(id), expiresIn: env.JWT_EXPIRES_IN as jwt.SignOptions['expiresIn'], algorithm: 'HS256' });
+  res.cookie('token', token, { httpOnly: true, sameSite: 'lax', secure: env.NODE_ENV === 'production', path: '/' });
+};
+
 export function authRouter(env: Env, db: Db) {
   const r = Router();
   const limiter = authLimiter(env);
   const cookieOpts = { httpOnly: true, sameSite: 'lax' as const, secure: env.NODE_ENV === 'production', path: '/' };
-  const startSession = (res: import('express').Response, id: number) => {
-    const token = jwt.sign({}, env.JWT_SECRET, { subject: String(id), expiresIn: env.JWT_EXPIRES_IN as jwt.SignOptions['expiresIn'], algorithm: 'HS256' });
-    res.cookie('token', token, cookieOpts);
-  };
+  const startSession = sessionStarter(env);
 
   r.post('/auth/register', limiter, validateBody(registerSchema), async (req, res) => {
     const { name, email, password } = req.body;

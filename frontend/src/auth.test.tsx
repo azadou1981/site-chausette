@@ -88,3 +88,12 @@ it('lets an admin open /admin', async () => {
   renderAt('/admin')
   await waitFor(() => expect(screen.getByText('ADMIN')).toBeTruthy())
 })
+
+it('offers "Continuer avec Google" on login and register', async () => {
+  for (const path of ['/login', '/register']) {
+    renderAt(path)
+    const link = await screen.findByRole('link', { name: 'Continuer avec Google' })
+    expect(link.getAttribute('href')).toMatch(/\/api\/auth\/google$/)
+    cleanup()
+  }
+})

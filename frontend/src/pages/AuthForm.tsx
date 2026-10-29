@@ -1,6 +1,6 @@
 import { useState, type FormEvent } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { ApiError } from '../api/client'
+import { API_URL, ApiError } from '../api/client'
 import { useAuth } from '../context/AuthContext'
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -12,7 +12,7 @@ export default function AuthForm({ mode }: { mode: 'login' | 'register' }) {
   const from = (useLocation().state as { from?: string } | null)?.from ?? '/'
   const isRegister = mode === 'register'
   const [errors, setErrors] = useState<Record<string, string>>({})
-  const [formError, setFormError] = useState('')
+  const [formError, setFormError] = useState(() => (new URLSearchParams(useLocation().search).get('error') === 'google' ? 'Google sign-in failed, please try again' : ''))
   const [busy, setBusy] = useState(false)
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
@@ -61,6 +61,7 @@ export default function AuthForm({ mode }: { mode: 'login' | 'register' }) {
       {field('email', 'Email', 'email', 'email')}
       {field('password', 'Password', 'password', isRegister ? 'new-password' : 'current-password')}
       <button className="btn" type="submit" disabled={busy}>{isRegister ? 'Register' : 'Log in'}</button>
+      <a className="btn-google" href={`${API_URL}/api/auth/google`}>Continuer avec Google</a>
       <p>{isRegister ? <>Already registered? <Link to="/login">Log in</Link></> : <>New here? <Link to="/register">Create an account</Link></>}</p>
     </form>
   )

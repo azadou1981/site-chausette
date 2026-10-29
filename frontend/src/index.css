@@ -60,3 +60,4 @@ table a, .card a { color: var(--text); font-weight: 600; }
 .logo { display: flex; flex-direction: column; align-items: flex-start; line-height: 1; color: var(--cta); }
 .logo-word { font-family: "Varela Round", "Nunito", ui-rounded, "SF Pro Rounded", "Arial Rounded MT Bold", system-ui, sans-serif; font-weight: 800; font-size: 2.2rem; letter-spacing: .12em; }
 .logo-tag { font-size: .95rem; font-weight: 300; letter-spacing: .04em; margin-top: .15rem; }
+.btn-google { display: block; text-align: center; background: #fff; color: var(--text); border: 1px solid #b9a58c; border-radius: 12px; padding: .7rem 1.4rem; font-weight: 700; text-decoration: none; }

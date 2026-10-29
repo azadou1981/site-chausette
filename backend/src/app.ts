@@ -9,6 +9,7 @@ import { globalLimiter } from './middleware/rateLimit.js';
 import { errorHandler, notFound } from './middleware/error.js';
 import { csrfRouter } from './routes/csrf.js';
 import { authRouter } from './routes/auth.js';
+import { googleRouter } from './routes/google.js';
 import { socksRouter } from './routes/socks.js';
 import { ordersRouter } from './routes/orders.js';
 import { openDb, type Db } from './db.js';
@@ -33,6 +34,7 @@ export function createApp(env: Env, db: Db = openDb(env.DB_PATH)) {
   });
   app.use('/api', csrfRouter(env));
   app.use('/api', authRouter(env, db));
+  app.use('/api', googleRouter(env, db));
   app.use('/api', socksRouter(env, db));
   app.use('/api', ordersRouter(env, db));
   app.use(notFound);
