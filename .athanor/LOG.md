@@ -33,3 +33,7 @@ Delivery: deliverable/ (built app, serve.mjs, start.sh, build.sh, smoke.sh), TES
 - Google OAuth (auth-code flow, no new dependency): backend/src/routes/google.ts, google_id column + migration, optional GOOGLE_* env vars in .env.example; "Continuer avec Google" link on login/register, error banner on ?error=google.
 - Existing email accounts are linked (verified email only); roles are never changed. 503 when not configured. Tests mock Google via fetch.
 - Verified: full check.sh PASSED. Next: M15 delivery.
+
+## 2026-10-29 M15
+- Rebuilt deliverable/app, README (Google setup, test admin), TEST_GUIDE items 9-11, FINAL_REPORT STATUS: DONE.
+- Verified: full check.sh PASSED.

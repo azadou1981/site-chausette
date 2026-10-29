@@ -14,3 +14,6 @@ Automated: `bash .athanor/check.sh` (unit, component, build, health, Playwright 
 6. Visit /admin as visitor and as a normal user: redirected/blocked.
 7. As admin: create a sock with an image upload (png/jpg <= 2 MB; other files refused), edit it, delete it (confirmation), see all orders.
 8. Security: more than 10 auth attempts in 15 min give 429; a POST without the CSRF header gives 403; other origins are refused by CORS.
+9. Branding: the header shows "unik." in rounded red letters with "comme vous" below, on the cream background.
+10. Test admin: run `cd backend && npm run seed:admin`, log in as admin@unik.com / admin123, open /admin.
+11. Google: "Continuer avec Google" is on /login and /register. Without keys it shows a 503 JSON error; with keys from README it signs you in and returns to the shop.
