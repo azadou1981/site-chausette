@@ -4,10 +4,10 @@ import { useCart } from '../context/CartContext'
 
 function Logo() {
   return (
-    <svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true">
-      <path d="M11 3h9v14l8 4a5 5 0 0 1-2 9H11a4 4 0 0 1-4-4V3z" fill="#ED2939" />
-      <rect x="11" y="3" width="9" height="5" fill="#fff" />
-    </svg>
+    <span className="logo">
+      <span className="logo-word" aria-hidden="true">unik.</span>
+      <span className="logo-tag" aria-hidden="true">comme vous</span>
+    </span>
   )
 }
 
@@ -18,7 +18,7 @@ export default function Layout() {
   return (
     <>
       <header className="site-header">
-        <Link to="/" className="brand"><Logo /> Chaussette</Link>
+        <Link to="/" className="brand" aria-label="unik. comme vous, home"><Logo /></Link>
         <nav aria-label="Main">
           <NavLink to="/">Shop</NavLink>
           <NavLink to="/cart">Cart ({count})</NavLink>

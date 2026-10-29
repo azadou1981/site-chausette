@@ -23,3 +23,8 @@ tester + critic ran (findings in BUGS.md). Fixed: production requires explicit A
 
 ## 2026-10-28 M12
 Delivery: deliverable/ (built app, serve.mjs, start.sh, build.sh, smoke.sh), TEST_GUIDE.md, README quick start, docs/CREDITS.md, FINAL_REPORT (STATUS: DONE). check.sh gets a deliverable-smoke step (backend + static site + /api/health); full check passes.
+
+## 2026-10-29 M13
+- Request is for Next.js backend but project backend is Express: kept Express (DECISIONS). RESUME.md was a false positive (localhost URL); removed.
+- Added backend/src/seedTestAdmin.ts (`npm run seed:admin`, refused in production) + test; unik. logo in Layout.tsx/index.css, header on #F6E6D1.
+- Verified: full check.sh PASSED, home-375 screenshot viewed. Next: M14 Google OAuth.

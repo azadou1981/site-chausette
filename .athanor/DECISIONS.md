@@ -1,0 +1,1 @@
+- 2026-10-29: Kept Express backend (project's existing stack) instead of Next.js for the new request; Google OAuth will be implemented as Express routes.
