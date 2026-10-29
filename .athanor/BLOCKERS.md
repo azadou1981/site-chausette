@@ -1,0 +1,1 @@
+- SECRETS_FOUND false positive: .athanor/REQUEST.md is the user's request text (tracked in the initial commit), not a secret. Left as is.
